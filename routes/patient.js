@@ -19,10 +19,21 @@ app.get('/', function (req, res) {
 app.get('/patient', function (req, res) {
     db.query('SELECT * FROM sakila.patient', function (error, results) {
         if (error) throw error;
-        return res.send(JSON.stringify(results))
-
+        return res.send(JSON.stringify(results));
     });
 });
+
+app.get('/patient/:id', function (req, res) {
+
+    let patient_id = req.params.id;
+
+    db.query('SELECT * FROM sakila.patient where patient_id=?', patient_id, function (error, results) {
+        if (error) throw error;
+        return res.send(JSON.stringify(results));
+    });
+});
+
+
 
 //need to clean this up, need advice, dont like it
 app.post('/patient', function(req,res){
